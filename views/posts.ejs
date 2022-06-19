@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> </title>
+</head>
+<body>
+    <%- include('./partials/nav.ejs') %>
+    <br><br>
+    <%- include('./partials/header.ejs') %>
+    <br><br>
+    <p>Hi from Posts</p>
+    <form action="" method="POST">
+        <input placeholder="Enter title" type="text" name="post-title-input" id="post-title-input"> <br>
+        <input placeholder="Enter post body" type="text" name="post-body-input" id="post-body-input"> <br><br>
+        <button type="submit" id="post-butt">Create Post</button>
+    </form>
+    
+    <br><br>
+    <%- include('./partials/footer.ejs') %>
+</body>
+</html>
