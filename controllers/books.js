@@ -1,6 +1,10 @@
 const Book = require('../models/Book');
 const User = require('../models/User');
 
+const getOneBookById = async(req, res) => {
+    
+}
+
 const getAllBooks = async(req, res) => {
     const books = Book.find();
 
@@ -39,6 +43,7 @@ const deleteBook = async(req, res) => {
 }
 
 module.exports = {
+    getOneBookById,
     getAllBooks,
     createNewBook,
     updateBook,
