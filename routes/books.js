@@ -10,8 +10,8 @@ const router = express.Router();
 router.get('/books', getAllBooks)
 router.get('/books/:_id', getOneBookById)
 router.post('/books', passport.authenticate('jwt', { session: false}), createNewBook)
-router.put('/books', passport.authenticate('jwt', { session: false}), updateBook)
-router.delete('/books', passport.authenticate('jwt', { session: false}), deleteBook)
+router.put('/books/:_id', passport.authenticate('jwt', { session: false}), updateBook)
+router.delete('/books/:_id', passport.authenticate('jwt', { session: false}), deleteBook)
 
 
 module.exports = router
