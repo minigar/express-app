@@ -21,6 +21,11 @@ const userSchema = new Schema({
         private: true
     },
 
+    aboutMe: {
+        type: String,
+        required: false
+    },
+
     books: [{
         type: Schema.Types.ObjectId,
         ref: 'books'
