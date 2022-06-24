@@ -79,7 +79,7 @@ const bookSchema = new Schema({
     }
 })
 
-const populationFields = 'user comments.user' 
+const populationFields = 'user' 
 
 // if const populationFields = 'user' we get full user object from all user's Schema feilds
 
