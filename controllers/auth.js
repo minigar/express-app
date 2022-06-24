@@ -19,7 +19,7 @@ const updateTokens = (userId) => {
 
 
 const getNewUser = async(req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, aboutMe } = req.body;
     const user = await User.findOne({ email })
 
     if (user) {
@@ -33,7 +33,7 @@ const getNewUser = async(req, res) => {
     else{
         const salt = await bcrypt.genSalt(10);  
         const hash = await bcrypt.hash(password, salt); 
-        await new User({ email, name, password: hash }).save(); // create new user
+        await new User({ email, name, password: hash, aboutMe }).save(); // create new user
         res.status(200).json(await User.find({ email }))
     }
     
