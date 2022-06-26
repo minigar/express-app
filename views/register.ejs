@@ -8,10 +8,10 @@
 </head>
 <body>
     <div>
-        <form class="box" action="" method="POST" novalidate>
-        <p title="Enter your username"  id="username"></p>
-        <p title="Enter your email" id="email"></p>
-        <p title="Enter your password" id="password"></p>
+        <form class="box" action="register" method="POST" novalidate>
+            <input type="text" id="email" name="email" placeholder="email"> <br><br>
+            <input type="text" id="password" name="password" placeholder="password"> <br><br>
+            <input type="submit" name="Log In"> <br><br>
         </form>
     </div>
     <%- include('./partials/header.ejs') %>
