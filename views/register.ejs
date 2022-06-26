@@ -8,16 +8,19 @@
 </head>
 <body>
     <div>
-        <form class="box" action="register" method="POST" novalidate>
+        <form class="box" action="/api/auth/register" method="POST" novalidate>
+            <input type="text" id="name" name="name" placeholder="name"> <br><br>
             <input type="text" id="email" name="email" placeholder="email"> <br><br>
-            <input type="text" id="password" name="password" placeholder="password"> <br><br>
+            <input type="password" id="password" name="password" placeholder="password"> <br><br>
+            <input type="text" id="aboutMe" name="aboutMe" placeholder="aboutMe"> <br><br>
             <input type="submit" name="Log In"> <br><br>
         </form>
     </div>
+
     <%- include('./partials/header.ejs') %>
     
     <%- include('./partials/nav.ejs') %>
     
     <%- include('./partials/footer.ejs') %>
-</body>
+</body>m
 </html>
