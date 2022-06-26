@@ -6,7 +6,7 @@ const getCommentsfromOnePost = async(req, res) => {
     if (!book) {
         res.status(404).json("Book not found")
     }
-
+    
     const comments = book.comments;
 
     res.status(200).json(comments);
@@ -28,6 +28,9 @@ const createComment = async(req, res) => {
 }
 
 const updateComment = async(req, res) => {
+    const bookId = req.params.bookId;
+    const book = await Book.findById(bookId);
+    const user = req.user;
     
 }
 
