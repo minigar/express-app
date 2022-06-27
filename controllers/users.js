@@ -59,7 +59,8 @@ const aboutUser = async(req, res) => {
 
 const changePassword = async(req, res) => {
     const { email, password, newPassword } = req.body;
-    const user = await User.findById( req.user._id );
+    const currentUserId = req.user._id;
+    const user = await User.findById( currentUserId );
     
     if ( email !== user.email ) {
         res.status(400).json("Incorrect email");
@@ -75,16 +76,44 @@ const changePassword = async(req, res) => {
         const salt = await bcrypt.genSalt(10);  
         const hash = await bcrypt.hash(newPassword, salt);
 
-        const filter = { _id: req.user._id };
+        const filter = { _id: currentUserId };
         const update = { password: hash };
-
         const updatedUser = await User.findOneAndUpdate(filter, update, { new: true });
+
         res.status(200).json(updatedUser);
+    }
+
+    else{
+        res.status(400).json("Passwords not same!");
     }
 }
 
 const changeName = async(req, res) => {
+    const { email, password, newName } = req.body;
+    const currentUserId = req.user._id;
+    const currentUser = await User.findById(currentUserId);
 
+    if ( email !== currentUser.email ) {
+        res.status(400).json("Incorrect email");
+    }
+
+    if (password.length < 7) {
+        res.status(400).json('Password must have 8 or more characters');
+    }
+
+    const comparePassword = await bcrypt.compare(password, currentUser.password);
+
+    if (comparePassword) {
+        const filter = { _id: currentUserId };
+        const update = { name: newName };
+        const updatedUser = await User.findOneAndUpdate(filter, update, { new: true });
+
+        res.status(200).json(updatedUser);
+    }
+
+    else{
+        res.status(400).json("Password incorrect!")
+    }
 }
 
 module.exports = {
