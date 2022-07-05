@@ -29,10 +29,8 @@ const updateAboutMe = async(req, res) => {
     if (!user) {
         res.status(401).json("User not found!");
         }
-
     
     const compareUserId = userId.toString() === currentUserId.toString()
-    console.log(userId.toString(), "  ", currentUserId.toString())
     
     if (!compareUserId){
         res.status(400).json("You can't change about other users")
