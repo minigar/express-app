@@ -28,31 +28,48 @@ const createComment = async(req, res) => {
 }
 
 const updateComment = async(req, res) => {
-    const bookId = req.params.bookId;
-    const book = await Book.findById(bookId);
-    const user = req.user;
-}
-
-const deleteComment = async(req, res) => {
+    const { body } = req.body;
     const { bookId, commentId} = req.params;
     const book = await Book.findById(bookId);
     const currentUserId = req.user._id;
-    const compareUserId = book.user._id.toString() == currentUserId.toString()
+    const compareUserId = book.user._id.toString() == currentUserId.toString();
 
     if (!book) {
         res.status(404).json("Book not found!");
     }
 
     if (!compareUserId) {
-        res.status(400).json("It is not your book you can't delete it!'")
+        res.status(400).json("It is not your book you can't change it!'")
     }
 
-    const commentIndex = book.comments.findIndex(comment => comment._id.toString() === commentId)
-
-    console.log(commentIndex)
+    const commentIndex = book.comments.findIndex(comment => comment._id.toString() === commentId);
 
     if (commentIndex < 0) {
-        res.status(404).json("Comment not found")
+        res.status(404).json("Comment not found!");
+    }
+
+    book.comments[commentIndex].body = body;
+    res.status(200).json(await book.save());
+}
+
+const deleteComment = async(req, res) => {
+    const { bookId, commentId} = req.params;
+    const book = await Book.findById(bookId);
+    const currentUserId = req.user._id;
+    const compareUserId = book.user._id.toString() == currentUserId.toString();
+
+    if (!book) {
+        res.status(404).json("Book not found!");
+    }
+
+    if (!compareUserId) {
+        res.status(400).json("It is not your book you can't delete it!'");
+    }
+
+    const commentIndex = book.comments.findIndex(comment => comment._id.toString() === commentId);
+
+    if (commentIndex < 0) {
+        res.status(404).json("Comment not found");
     }
 
     book.comments.splice(commentIndex, 1);
