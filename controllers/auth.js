@@ -1,5 +1,6 @@
 const User = require('../models/User');
 const bcrypt = require('bcryptjs');
+const { isEmail } = require('validator');
 const passport = require('passport');
 require('../lib/passport-config')(passport);
 
@@ -26,7 +27,11 @@ const getNewUser = async(req, res) => {
         res.status(400).json('This email aready exist')
     }
 
-    if (password.length < 7) {
+    else if (!isEmail(email)) {
+        res.status(400).json("Bad email must be with @<site>.com");
+    }
+
+    else if (password.length < 7) {
         res.status(400).json('Password must have 8 or more characters')
     }
 
