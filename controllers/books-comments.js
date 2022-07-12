@@ -6,7 +6,7 @@ const getCommentsfromOnePost = async(req, res) => {
     if (!book) {
         res.status(404).json("Book not found")
     }
-    
+
     const comments = book.comments;
 
     res.status(200).json(comments);

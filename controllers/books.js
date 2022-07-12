@@ -25,6 +25,8 @@ const createNewBook = async(req, res) => {
     const user = req.user;
     const book = await Book.findOne({ name })
 
+    console.log(user)
+
     if (name.length <= 7) {
         res.json("Book's name must have 7 or more symbwols!");
         res.status(400)
@@ -46,26 +48,24 @@ const createNewBook = async(req, res) => {
 const updateBook = async(req, res) => {
     const bookId = req.params._id;
     const book = await Book.findById(bookId);
-    const userId = req.user._id
-    const compareUserId = book.user._id.toString() == userId.toString()
+    const currentUserId = req.user._id
+    const compareUserId = book.user._id.toString() == currentUserId.toString()
 
     if (!book) {
         res.status(404).json("Book not found!");
     }
 
+    if (compareUserId) {
+        const { name, description, cost } = req.body;
+        const filter = { _id: bookId };
+        const update = { name: name, description: description, cost: cost };
+
+        const updatedBook = await Book.findOneAndUpdate(filter, update, { new: true });
+        res.status(200).json(updatedBook)
+    }
+
     else{
-        if (compareUserId) {
-            const { name, description, cost } = req.body;
-            const filter = { _id: bookId };
-            const update = { name: name, description: description, cost: cost };
-
-            const updatedBook = await Book.findOneAndUpdate(filter, update, { new: true });
-            res.status(200).json(updatedBook)
-        }
-
-        else{
-            res.status(400).json("It is not your book you can't change it!")
-        }
+        res.status(400).json("It is not your book you can't change it!")
     }
 }
 
