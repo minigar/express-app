@@ -1,24 +1,22 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const passport = require('passport');
 require('../lib/passport-config')(passport)
 
-const urlencoded = bodyParser.urlencoded({ extended: false })
 
-const { getPosts, deletePost, createPost, updatePost, getPost } = require('../controllers/posts')
+const { getAllPosts, deletePost, createNewPost, updatePost, getOnePostById } = require('../controllers/posts')
 
 const router = express.Router();
 
 
-router.get('/posts', getPosts)
+router.get('/posts', getAllPosts)
 
-router.get('/posts/:_id', getPost)
+router.get('/posts/:_id', getOnePostById)
 
-router.post('/posts', passport.authenticate('jwt', { session: false}), createPost)
+router.post('/posts', passport.authenticate('jwt', { session: false}), createNewPost)
 
-router.put('/posts/:_id', passport.authenticate('jwt', { session: false}), updatePost)
+router.put('/posts/:postId', passport.authenticate('jwt', { session: false}), updatePost)
 
-router.delete('/posts/:_id', passport.authenticate('jwt', { session: false}), deletePost)
+router.delete('/posts/:postId', passport.authenticate('jwt', { session: false}), deletePost)
 
 
 
