@@ -10,9 +10,10 @@ const booksCommentsLikes = require('./books-comments-likes');
 const bookLikes = require('./books-likes');
 const postsLikes = require('./posts-likes');
 const postsCommentsLikes = require('./posts-comments-likes');
+const usersKarma = require('./users-karma');
 
 const router = express.Router();
 
-router.use(books, posts, users, refreshTokens, postsComments, booksComments, bookLikes, booksCommentsLikes, postsLikes, postsCommentsLikes);
+router.use(books, posts, users, refreshTokens, postsComments, booksComments, bookLikes, booksCommentsLikes, postsLikes, postsCommentsLikes, usersKarma);
 
 module.exports = router
